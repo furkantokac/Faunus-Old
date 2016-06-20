@@ -9,12 +9,12 @@ KEY3 = "Key3"
 DEFAULT_SETTINGS = {'loged_in':False,
                     'automail':True,
                     'startup_automail':True}
-DEFAULT_DATA = {'username':False,
-                'password':False,
+DEFAULT_DATA = {'username':"",
+                'password':"",
                 'imap_server':'imap.metu.edu.tr',
                 'imap_port':'993',
-                'pop3_server':'pop3.metu.edu.tr',
-                'pop3_port':'995'}
+                'smtp_server':'smtp.metu.edu.tr',
+                'smtp_port':'587'}
 settings = {} # settings
 dirs = {} # important directories of project
 data = {} # Username, password etc.
@@ -28,7 +28,8 @@ def init():
     dirs["src"] = os.path.dirname(__file__)
     dirs["project"] = os.path.abspath(os.path.join(dirs["src"], os.path.pardir))
     dirs["res"] = os.path.join(dirs["project"], "res")
-    dirs["faunus_icon"] = os.path.join(dirs["res"], "faunus_icon.png")
+    dirs["app_icon"] = os.path.join(dirs["res"], "app_icon.png")
+    dirs["tray_icon"] = os.path.join(dirs["res"], "tray_icon.png")
     dirs["mail_icon"] = os.path.join(dirs["res"], "mail_icon.png")
     dirs["config"] = os.path.join(dirs["src"], "config.dict")
     dirs["data"] = os.path.join(dirs["src"], "data.dict")
@@ -64,8 +65,7 @@ def init():
 
 def set_default_data():
     global data
-    data["username"] = False
-    data["password"] = False
+    data = DEFAULT_DATA.copy()
     with open(dirs["data"], "w") as fo:
         fo.write(str(data))
 
@@ -94,6 +94,7 @@ def set_encrypted_data(item, value):
 
 def get_encypted_data(item):
     value = data[item]
+    print(value)
     value = "".join(map(chr, value))
     value = enc(value)
     value = "".join(map(chr, value))
