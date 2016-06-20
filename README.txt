@@ -4,10 +4,6 @@ Faunus is a project focused on students' needs. In the first version, it will ha
 
 -------------------------------------
 
-deneme
-den
-eme
-
 INSTALLATION LINUX: (executable file will be deployed with first version)
 1- Install Python3 _ It should be installed as default in Linux systems.
 2- Install Qt5 _ https://www.qt.io/download-open-source/
