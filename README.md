@@ -4,11 +4,11 @@ Faunus is a project focused on students' needs. In the first version, it will ha
 
 -------------------------------------
 
-INSTALLATION LINUX: (executable file will be deployed with first version)</br>
-1- Install Python3 _ It should be installed as default in Linux systems.</br>
-2- Install Qt5 _ https://www.qt.io/download-open-source/</br>
-3- Download Faunus _ https://github.com/furkantokac/Faunus/archive/master.zip</br>
-4- Run the faunus.py</br>
+INSTALLATION LINUX: (executable file will be deployed with first version)
+1- Install Python3 _ It should be installed as default in Linux systems.
+2- Install Qt5 _ https://www.qt.io/download-open-source/
+3- Download Faunus _ https://github.com/furkantokac/Faunus/archive/master.zip
+4- Run the faunus.py
 
 INSTALLATION WINDOWS: (.exe file will be deployed with first version)
 1- Install Python3 _ https://www.python.org/downloads/
