@@ -38,30 +38,37 @@ class Faunus(QMainWindow):
     def handle_new_mail(self, new_mail):
         self.ui.statusBar.showMessage("You have "+str(new_mail)+" new message.", 2000)
 
-    def load_mailbox_settings(self, mailbox):
-        mailbox.username = config.data["username"]
-        mailbox.password = config.get_encypted_data("password")
-        mailbox.imap_server= config.data["imap_server"]
-        mailbox.imap_port = config.data["imap_port"]
+    def load_mailbox_settings(self, mailbox, uname=config.data["username"], pwd=config.get_encypted_data("password"),
+                              imapsw=config.data["imap_server"], imapprt=config.data["imap_port"],
+                              smtpsw=config.data["smtp_server"], smtpprt=config.data["smtp_port"]):
+        mailbox.username = uname
+        mailbox.password = pwd
+        mailbox.imap_server = imapsw
+        mailbox.imap_port = imapprt
 
     def save_mail(self):
-        self.ui.chb_automail.setChecked(False)
-        self.ui.chb_automail.setDisabled(True)
-        config.data["username"] = self.ui.lne_username.text()
-        config.set_encrypted_data("password", self.ui.lne_password.text())
-        config.data["imap_server"] = self.ui.lne_imap_server.text()
-        config.data["imap_port"] = self.ui.lne_imap_port.text()
-        config.data["pop3_server"] = self.ui.lne_pop3_server.text()
-        config.data["pop3_port"] = self.ui.lne_pop3_port.text()
-        self.load_mailbox_settings(self.mailbox)
-        response = self.mailbox.check_server_response()
+        tmp_mailbox = mail.MailBox(True)
+        tmp_username = self.ui.lne_username.text()
+        tmp_password = self.ui.lne_password.text()
+        tmp_imap_server = self.ui.lne_imap_server.text()
+        tmp_imap_port = self.ui.lne_imap_port.text()
+        tmp_smtp_server = self.ui.lne_smtp_server.text()
+        tmp_smtp_port = self.ui.lne_smtp_port.text()
+        self.load_mailbox_settings(tmp_mailbox, tmp_username, tmp_password, tmp_imap_server, tmp_imap_port,
+                                   tmp_smtp_server, tmp_smtp_port)
+        response = tmp_mailbox.check_server_response()
 
         if response!="valid":
-            QMessageBox.warning(self, "Connection Error",
-                                response+" is not valid. Please check your informations.",
+            QMessageBox.warning(self, "Connection Error", response+" is not valid. Please check your informations.",
                                 QMessageBox.Close)
             return
 
+        config.data["username"] = tmp_username
+        config.set_encrypted_data("password", tmp_password)
+        config.data["imap_server"] = tmp_imap_server
+        config.data["imap_port"] = tmp_imap_port
+        config.data["smtp_server"] = tmp_smtp_server
+        config.data["smtp_port"] = tmp_smtp_port
         config.settings["loged_in"] = True
         config.settings["automail"] = bool(self.ui.chb_automail.checkState())
         config.settings["startup_automail"] = bool(self.ui.chb_startup_automail.checkState())
@@ -69,23 +76,23 @@ class Faunus(QMainWindow):
         config.save_settings()
         self.load_mailbox_settings(self.mailbox)
         self.ui.chb_automail.setDisabled(False)
-        print("Account successfully saved.")
+        print("[+] Account successfully saved.")
 
     def handle_automail(self, state):
         if state:
             self.automail_timer.start(self.automail_freq)
-            print("Automail checking started.")
+            print("[+] Automail checking started.")
         else:
             self.automail_timer.stop()
-            print("Automail checking stopped.")
+            print("[-] Automail checking stopped.")
 
     def handle_startup_automail(self, state):
         if state:
             config.settings["startup_automail"] = True
-            print("Startup automail activated.")
+            print("[+] Startup automail activated.")
         else:
             config.settings["startup_automail"] = False
-            print("Startup automail deactivated.")
+            print("[-] Startup automail deactivated.")
 
         config.save_settings()
 
@@ -109,6 +116,6 @@ class MailThread(QThread):
 if __name__=="__main__":
     app = QApplication(sys.argv)
     myapp = Faunus()
-    myapp.setWindowIcon(QIcon(config.dirs["faunus_icon"]))
+    myapp.setWindowIcon(QIcon(config.dirs["app_icon"]))
     myapp.show()
     sys.exit(app.exec_())
