@@ -12,7 +12,7 @@ INSTALLATION LINUX: (executable file will be deployed with first version)
 
 INSTALLATION WINDOWS: (.exe file will be deployed with first version)
 1- Install Python3 _ https://www.python.org/downloads/
-2- Install PyQt5 (there is .exe installation below of page) _ https://www.riverbankcomputing.com/software/pyqt/download5
+2- Install PyQt5 (there is .exe installation below of the page) _ https://www.riverbankcomputing.com/software/pyqt/download5
 3- Download Faunus _ https://github.com/furkantokac/Faunus/archive/master.zip
 4- Run the faunus.py
 
