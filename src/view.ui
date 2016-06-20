@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>560</width>
     <height>296</height>
    </rect>
   </property>
@@ -39,15 +39,15 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QGroupBox" name="groupBox_pop3">
+     <widget class="QGroupBox" name="groupBox_smtp">
       <property name="title">
-       <string>Outgoing Settings (POP3)</string>
+       <string>Outgoing Settings (SMTP)</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>POP3 Server</string>
+          <string>SMTP Server</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -55,9 +55,9 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lne_pop3_server">
+        <widget class="QLineEdit" name="lne_smtp_server">
          <property name="text">
-          <string>pop3.metu.edu.tr</string>
+          <string>smtp.metu.edu.tr</string>
          </property>
          <property name="frame">
           <bool>true</bool>
@@ -67,7 +67,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>POP3 Port</string>
+          <string>SMTP Port</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -75,9 +75,9 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lne_pop3_port">
+        <widget class="QLineEdit" name="lne_smtp_port">
          <property name="text">
-          <string>995</string>
+          <string>587</string>
          </property>
         </widget>
        </item>
@@ -186,7 +186,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>560</width>
      <height>25</height>
     </rect>
    </property>
