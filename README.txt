@@ -48,3 +48,5 @@ UNDER DEVELOPMENT:
 Development Tools : PyCharm 2016.1, QT 5.6.0
 Bindings          : Python3, PyQt5
 Tested on         : Ubuntu 14.04.4
+
+-------------------------------------
