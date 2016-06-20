@@ -1,0 +1,3 @@
+# Faunus AlfaV0.1
+
+Bindings : Python3, PyQt5
