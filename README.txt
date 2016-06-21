@@ -37,7 +37,7 @@ UNDER DEVELOPMENT:
 -Startup system
 -Notification system
 -System tray
--Improving email module (POP3, more information about messages)
+-Improving email module (POP3, SMTP, more information about messages)
 -Multi-language support
 -Hotspot
 -Auto-update module
