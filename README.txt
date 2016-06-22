@@ -1,4 +1,4 @@
-Current Version : Faunus AlfaV0.1
+Current Version : Faunus Alfa V0.0.1
 
 Faunus is a project focused on students' needs. In the first version, it will have following main features: Multi-language support, auto email checker, hotspot, autoupdate system and cross-platform support. In the next versions, there will be features like question asking system, account system, file-sharing system, voice control, chat system, multiplayer games to play with friends etc. There will be a special website for this project soon.
 
