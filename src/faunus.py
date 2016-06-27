@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import sys, mail, config, view
+import sys, mail, view
+from hotspotlinux import Hotspot
+from config import * # includes : conf, dirs, encrypt, decrypt, save_conf
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import *
+
+os.chdir(dirs['src'])
 
 
 class Faunus(QMainWindow):
@@ -27,34 +31,95 @@ class Faunus(QMainWindow):
         self.ui.chb_startup_automail.stateChanged.connect(self.handle_startup_automail)
         self.ui.btn_save_mail.clicked.connect(self.save_mail)
 
-        if config.settings["loged_in"]:
-            self.load_mailbox_settings(self.mailbox)
-            if config.settings["startup_automail"]:
+        if conf['faunus']['num_of_mailbox']:
+            self.load_mailbox_settings(self.mailbox, 'mailbox0')
+            if conf["mailbox0"]['startup']:
                 self.ui.chb_startup_automail.setChecked(True)
                 self.ui.chb_automail.setChecked(True)
         else:
             self.ui.chb_automail.setDisabled(True)
 
+        # hotspot things
+        self.hotspot = Hotspot(conf['hotspot']['name'], conf['hotspot']['password'], conf['hotspot']['ip'],
+                               conf['hotspot']['inet'], conf['hotspot']['wlan'], conf['hotspot']['netmask'])
+        self.ui.btn_home_settings_save.clicked.connect(self.hotspot_settings_save)
+        self.ui.btn_hotspot_on.clicked.connect(self.hotspot_on)
+        self.ui.btn_hotspot_off.clicked.connect(self.hotspot_off)
+        if conf['faunus']['sudo_pwd']=='':
+            self.ui.btn_hotspot_on.setDisabled(True)
+            self.ui.btn_hotspot_off.setDisabled(True)
+        else:
+            self.ui.lne_hotspot_password.setText(conf['hotspot']['password'])
+            self.ui.lne_hotspot_name.setText(conf['hotspot']['name'])
+            if conf['hotspot']['startup']:
+                self.ui.chb_startup_hotspot.setChecked(True)
+                self.ui.btn_hotspot_on.click()
+
+    def hotspot_on(self):
+        if self.ui.chb_hotspot_advanced_settings.checkState():
+            pass
+
+        self.hotspot.ssid = self.ui.lne_hotspot_name.text()+"_Faunus"
+        self.hotspot.password = self.ui.lne_hotspot_password.text()
+        conf['hotspot']['name'] = self.ui.lne_hotspot_name.text()
+        conf['hotspot']['password'] = self.ui.lne_sudo_password.text()
+        save_conf()
+
+        if self.hotspot.verify():
+            response = self.hotspot.start( decrypt( conf['faunus']['sudo_pwd'] ) )
+            print(response)
+            if response==True:
+                self.ui.lbl_hotspot_status.setText("ON")
+                self.ui.btn_hotspot_off.setDisabled(False)
+                self.ui.btn_hotspot_on.setDisabled(True)
+
+    def hotspot_off(self):
+        self.ui.btn_hotspot_off.setDisabled(True)
+        self.ui.btn_hotspot_on.setDisabled(False)
+        self.hotspot.stop(decrypt( conf['faunus']['sudo_pwd'] ))
+        self.ui.lbl_hotspot_status.setText("OFF")
+
+    def hotspot_settings_save(self):
+        sudo_pwd = self.ui.lne_sudo_password.text()
+        sudo_pwd.strip()
+        hs = Hotspot()
+
+        if hs.check_sudo_password(sudo_pwd):
+            conf["faunus"]["sudo_pwd"] = encrypt(sudo_pwd)
+            save_conf()
+            self.ui.btn_hotspot_on.setDisabled(False)
+        else:
+            print("Wrong password. Didn't saved.")
+
     def handle_new_mail(self, new_mail):
         self.ui.statusBar.showMessage("You have "+str(new_mail)+" new message.", 2000)
 
-    def load_mailbox_settings(self, mailbox, uname=config.data["username"], pwd=config.get_encypted_data("password"),
-                              imapsw=config.data["imap_server"], imapprt=config.data["imap_port"],
-                              smtpsw=config.data["smtp_server"], smtpprt=config.data["smtp_port"]):
-        mailbox.username = uname
-        mailbox.password = pwd
-        mailbox.imap_server = imapsw
-        mailbox.imap_port = imapprt
+    def load_mailbox_settings(self, mailbox, mailbox_id="", uname="", pwd="", imapsw="", imapprt="", smtpsw="",
+                              smtpprt=""):
+        if uname:
+            mailbox.username = uname
+            mailbox.password = pwd
+            mailbox.imap_server = imapsw
+            mailbox.imap_port = imapprt
+            # mailbox.smtp_server = smtpsw
+            # mailbox.smtp_port = smtpprt
+        else:
+            mailbox.username = conf[mailbox_id]["username"]
+            mailbox.password = decrypt(conf[mailbox_id]["password"])
+            mailbox.imap_server = conf[mailbox_id]["imap_server"]
+            mailbox.imap_port = conf[mailbox_id]["imap_port"]
+            # mailbox.smtp_server = data["smtp_server"]
+            # mailbox.smtp_port = data["smtp_port"]
 
     def save_mail(self):
-        tmp_mailbox = mail.MailBox(True)
+        tmp_mailbox = mail.MailBox()
         tmp_username = self.ui.lne_username.text()
         tmp_password = self.ui.lne_password.text()
         tmp_imap_server = self.ui.lne_imap_server.text()
         tmp_imap_port = self.ui.lne_imap_port.text()
         tmp_smtp_server = self.ui.lne_smtp_server.text()
         tmp_smtp_port = self.ui.lne_smtp_port.text()
-        self.load_mailbox_settings(tmp_mailbox, tmp_username, tmp_password, tmp_imap_server, tmp_imap_port,
+        self.load_mailbox_settings(tmp_mailbox, '', tmp_username, tmp_password, tmp_imap_server, tmp_imap_port,
                                    tmp_smtp_server, tmp_smtp_port)
         response = tmp_mailbox.check_server_response()
 
@@ -63,18 +128,19 @@ class Faunus(QMainWindow):
                                 QMessageBox.Close)
             return
 
-        config.data["username"] = tmp_username
-        config.set_encrypted_data("password", tmp_password)
-        config.data["imap_server"] = tmp_imap_server
-        config.data["imap_port"] = tmp_imap_port
-        config.data["smtp_server"] = tmp_smtp_server
-        config.data["smtp_port"] = tmp_smtp_port
-        config.settings["loged_in"] = True
-        config.settings["automail"] = bool(self.ui.chb_automail.checkState())
-        config.settings["startup_automail"] = bool(self.ui.chb_startup_automail.checkState())
-        config.save_data()
-        config.save_settings()
-        self.load_mailbox_settings(self.mailbox)
+        mailbox_id = 'mailbox'+str(conf["faunus"]["num_of_mailbox"])
+        conf[mailbox_id] = {}
+        conf[mailbox_id]["username"] = tmp_username
+        conf[mailbox_id]["password"] = encrypt(tmp_password)
+        conf[mailbox_id]["imap_server"] = tmp_imap_server
+        conf[mailbox_id]["imap_port"] = tmp_imap_port
+        conf[mailbox_id]["smtp_server"] = tmp_smtp_server
+        conf[mailbox_id]["smtp_port"] = tmp_smtp_port
+        conf[mailbox_id]["automail"] = bool(self.ui.chb_automail.checkState())
+        conf[mailbox_id]["startup"] = bool(self.ui.chb_startup_automail.checkState())
+        conf["faunus"]["num_of_mailbox"] += 1
+        save_conf()
+        self.load_mailbox_settings(self.mailbox, mailbox_id)
         self.ui.chb_automail.setDisabled(False)
         print("[+] Account successfully saved.")
 
@@ -88,13 +154,13 @@ class Faunus(QMainWindow):
 
     def handle_startup_automail(self, state):
         if state:
-            config.settings["startup_automail"] = True
+            conf["mailbox0"]["startup"] = True
             print("[+] Startup automail activated.")
         else:
-            config.settings["startup_automail"] = False
+            conf["mailbox0"]["startup"] = False
             print("[-] Startup automail deactivated.")
 
-        config.save_settings()
+        save_conf()
 
 
 class MailThread(QThread):
@@ -116,6 +182,6 @@ class MailThread(QThread):
 if __name__=="__main__":
     app = QApplication(sys.argv)
     myapp = Faunus()
-    myapp.setWindowIcon(QIcon(config.dirs["app_icon"]))
+    myapp.setWindowIcon(QIcon(dirs["app_icon"]))
     myapp.show()
     sys.exit(app.exec_())

@@ -5,11 +5,11 @@ import imaplib, socket
 socket.setdefaulttimeout(3)
 
 class MailBox():
-    def __init__(self):
-        self.imap_server = ""
-        self.imap_port = ""
-        self.username = ""
-        self.password = ""
+    def __init__(self, imapsw="", imapprt="", uname="", passwd=""):
+        self.imap_server = imapsw
+        self.imap_port = imapprt
+        self.username = uname
+        self.password = passwd
 
     def check_new_mail(self):
         try:

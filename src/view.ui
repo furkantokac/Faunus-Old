@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
-    <height>296</height>
+    <width>682</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,181 +15,615 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="0">
-     <widget class="QGroupBox" name="groupBox_settings">
-      <property name="title">
-       <string>Settings</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="chb_automail">
-         <property name="text">
-          <string>Automail Check</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="chb_startup_automail">
-         <property name="text">
-          <string>Startup Automail</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QGroupBox" name="groupBox_smtp">
-      <property name="title">
-       <string>Outgoing Settings (SMTP)</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>SMTP Server</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lne_smtp_server">
-         <property name="text">
-          <string>smtp.metu.edu.tr</string>
-         </property>
-         <property name="frame">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>SMTP Port</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lne_smtp_port">
-         <property name="text">
-          <string>587</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QGroupBox" name="groupBox_imap">
-      <property name="title">
-       <string>Incoming Settings (IMAP)</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lne_imap_server">
-         <property name="text">
-          <string>imap.metu.edu.tr</string>
-         </property>
-         <property name="frame">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lne_imap_port">
-         <property name="text">
-          <string>993</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>IMAP Port</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>IMAP Server</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="4" column="0" rowspan="2" colspan="2">
-     <widget class="QPushButton" name="btn_save_mail">
-      <property name="text">
-       <string>Save</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0">
-     <widget class="QGroupBox" name="groupBox_account">
-      <property name="title">
-       <string>Login Mail</string>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>2</number>
       </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="lne_password">
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Password</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLineEdit" name="lne_username"/>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_1">
-         <property name="text">
-          <string>Username</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QWidget" name="tab_home">
+       <attribute name="title">
+        <string>Home</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_13">
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_home_status">
+          <property name="title">
+           <string>Status</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_14">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_15">
+             <property name="font">
+              <font>
+               <family>Ubuntu</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>ON</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Unseen Mail : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Hotspot : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="lbl_main_unseen">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="3">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="2" rowspan="2">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QGroupBox" name="groupBox_home_settings">
+          <property name="title">
+           <string>Settings</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_12">
+           <item row="3" column="1">
+            <widget class="QCheckBox" name="chb_startup_faunus">
+             <property name="text">
+              <string>Startup Faunus</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="btn_home_settings_save">
+             <property name="text">
+              <string>Save Settings</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_mail">
+       <attribute name="title">
+        <string>Mail</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_settings">
+          <property name="title">
+           <string>Settings</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="chb_automail">
+             <property name="text">
+              <string>Automail Check</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="chb_startup_automail">
+             <property name="text">
+              <string>Startup Automail</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QGroupBox" name="groupBox_smtp">
+          <property name="title">
+           <string>Outgoing Settings (SMTP)</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>SMTP Server</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lne_smtp_server">
+             <property name="text">
+              <string>smtp.metu.edu.tr</string>
+             </property>
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>SMTP Port</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lne_smtp_port">
+             <property name="text">
+              <string>587</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_imap">
+          <property name="title">
+           <string>Incoming Settings (IMAP)</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lne_imap_server">
+             <property name="text">
+              <string>imap.metu.edu.tr</string>
+             </property>
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lne_imap_port">
+             <property name="text">
+              <string>993</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>IMAP Port</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>IMAP Server</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_account">
+          <property name="title">
+           <string>Login Mail</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="lne_password">
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Password</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLineEdit" name="lne_username"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_1">
+             <property name="text">
+              <string>Username</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QPushButton" name="btn_save_mail">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_hotspot">
+       <attribute name="title">
+        <string>Hotspot</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_15">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_hotspot_create">
+          <property name="title">
+           <string>Create Hotspot</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="lne_hotspot_name">
+             <property name="text">
+              <string>I_am</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Name : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Password : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="btn_hotspot_on">
+             <property name="text">
+              <string>On</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" colspan="2">
+            <widget class="QLineEdit" name="lne_hotspot_password">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="btn_hotspot_off">
+             <property name="text">
+              <string>Off</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_hotspot_settings">
+          <property name="title">
+           <string>Settings</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_17">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Sudo Password : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="chb_hotspot_datausage">
+             <property name="text">
+              <string>Data Counter</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QCheckBox" name="chb_startup_hotspot">
+             <property name="text">
+              <string>Startup Hotspot</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lne_sudo_password">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QCheckBox" name="chb_hotspot_advanced_settings">
+             <property name="text">
+              <string>Advanced Settings</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="bnt_hotspot_save_settings">
+             <property name="text">
+              <string>Save</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox_hotspot_status">
+          <property name="title">
+           <string>Status</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_18">
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Connected Devices : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Hotspot : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="lbl_hotspot_datausage">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>0Mb</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Data Usage : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="lbl_hotspot_status">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>OFF</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Internet Source : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="lbl_hotspot_connecteds">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="label_25">
+             <property name="text">
+              <string>Wireless : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLabel" name="label_27">
+             <property name="text">
+              <string>IP Adress : </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QLineEdit" name="lne_hotspot_inet">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>eth0</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QLineEdit" name="lne_hotspot_wlan">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>wlan0</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="5">
+            <widget class="QLineEdit" name="lne_hotspot_ip">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>192.168.45.1</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" rowspan="3">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>560</width>
-     <height>25</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
