@@ -1,6 +1,6 @@
 # Current Version
 
-Faunus Alfa V0.0.1
+Faunus Alfa V0.0.5
 
 -------------------------------------
 
@@ -65,6 +65,7 @@ CURRENT FEATURES:
 -Automatic imap email checking (IMAP)
 -Fully cross-platform
 -Basic encryption to critical datas
+-Linux Hotspot
 
 UNDER DEVELOPMENT:
 -Startup system
@@ -72,7 +73,6 @@ UNDER DEVELOPMENT:
 -System tray
 -Improving email module (SMTP, more info about messages)
 -Multi-language support
--Hotspot
 -Auto-update module
 -User interface
 
