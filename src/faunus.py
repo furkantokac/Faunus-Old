@@ -7,8 +7,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import *
 
-os.chdir(dirs['src'])
-
 
 class Faunus(QMainWindow):
     def __init__(self):
