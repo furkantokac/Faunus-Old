@@ -1,6 +1,6 @@
 # Current Version
 
-Faunus Alfa V0.0.5
+Faunus Alpha V0.0.5
 
 -------------------------------------
 
