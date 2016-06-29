@@ -15,8 +15,7 @@ Faunus is a project focused on students' needs. In the first version, it will ha
 For LINUX
 -PyQt5
 -Python3
--hostapd (sudo apt-get install hotsapd)
--dnsmasq (pre-installed on most linux distributions)
+-hostapd for Hotspot (sudo apt-get install hotsapd)
 
 For WINDOWS
 -PyQt5
