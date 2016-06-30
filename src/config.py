@@ -8,21 +8,22 @@ KEY3 = "Key3"
 
 # Basic template of configuration
 DEFAULT_CONF = {'mailbox0':{'username':'',
-                         'password':'',
-                         'imap_server':'',
-                         'imap_port':'993',
-                         'smtp_server':'',
-                         'smtp_port':'587'
-                         },
-                'hotspot':{'name':'I_am',
-                           'password':'1234567890',
-                           'inet':'eth0',
-                           'wlan':'wlan0',
+                            'password':'',
+                            'imap_server':'',
+                            'imap_port':'993',
+                            'smtp_server':'',
+                            'smtp_port':'587',
+                            'startup':True
+                            },
+                'hotspot':{'ssid':'',
+                           'password':'',
+                           'inet':'',
+                           'wlan':'',
                            'ip':'192.168.45.1',
                            'netmask':'255.255.255.0',
-                           'advanced_settings':False,
                            'startup':False,
-                           'datausage':False
+                           'datausage':False,
+                           'saved':False
                            },
                 'faunus':{'startup':True,
                           'num_of_mailbox':0, # will be supported more than 1 email
@@ -31,7 +32,7 @@ DEFAULT_CONF = {'mailbox0':{'username':'',
                 }
 conf = {} # configurations
 dirs = {} # important directories of project
-
+tmp = {} # tmp variables
 
 def init():
     global conf, dirs
@@ -68,17 +69,17 @@ def save_conf():
     json.dump(conf, open('config.json', 'w'))
 
 
-def encrypt(value):
+def encrypt(value, k=KEY1):
     if value=="":
         return ""
-    return xor(value)
+    return xor(value, k)
 
 
-def decrypt(value):
+def decrypt(value, k=KEY1):
     if value=="":
         return ""
     value = "".join(map(chr, value))
-    value = xor(value)
+    value = xor(value, k)
     value = "".join(map(chr, value))
     return value
 

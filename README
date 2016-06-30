@@ -1,6 +1,6 @@
 # Current Version
 
-Faunus Alpha V0.0.5
+Faunus Alpha V0.0.6
 
 -------------------------------------
 
@@ -15,7 +15,9 @@ Faunus is a project focused on students' needs. In the first version, it will ha
 For LINUX
 -PyQt5
 -Python3
--hostapd for Hotspot (sudo apt-get install hotsapd)
+-hostapd for Hotspot
+    sudo apt-get install hotsapd
+    yum install hostapd
 
 For WINDOWS
 -PyQt5
@@ -28,7 +30,7 @@ For WINDOWS
 For LINUX:
 1- Install Python3 _ Pre-installed on most Linux distributions.
 2- Install Qt5 _ https://www.qt.io/download-open-source/
-3- Install hostapd _ sudo apt-get install hotsapd
+3- Install hostapd _ sudo apt-get install hotsapd or yum install hostapd
 4- Download Faunus _ https://github.com/furkantokac/Faunus/archive/master.zip
 5- Run the faunus.py
 
@@ -65,6 +67,7 @@ CURRENT FEATURES:
 -Fully cross-platform
 -Basic encryption to critical datas
 -Linux Hotspot
+-Mail and hotspot is stable after V0.0.6
 
 UNDER DEVELOPMENT:
 -Startup system
@@ -78,6 +81,7 @@ UNDER DEVELOPMENT:
 DEVELOPMENT TOOLS:
 -PyCharm 2016.1
 -QT 5.6.0
+-Atlassian JIRA for project management
 
 TESTED ON
 -Ubuntu 14.04.4

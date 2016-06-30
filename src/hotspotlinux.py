@@ -7,9 +7,8 @@ import os
 
 
 class Hotspot(object):
-    def __init__(self, ssid="I_am", password="1234567890", ip="192.168.99.1", inet="eth0", wlan="wlan0",
-                 netmask="255.255.255.0"):
-        self.ssid = ssid+"_Faunus"
+    def __init__(self, ssid="", password="", ip="", inet="", wlan="", netmask="255.255.255.0"):
+        self.ssid = ssid
         self.password = password
         self.ip = ip
         self.inet = inet
@@ -33,30 +32,18 @@ class Hotspot(object):
 
     def check_interfaces(self):
         if not ut.interface_if(self.wlan):
-            print("[!] Network interface was not found. Make sure your wifi is on")
             return "wlan"
         elif not ut.interface_if(self.inet):
-            print("[!] Wifi interface was not found. Make sure you are connected to the internet")
             return "network"
 
-        print("[+] Interfaces are ok.")
-        return True
+        return "verified"
 
     def stop(self, sudo_pwd):
         # bring down the interface
         ut.execute_shell_root('ifconfig mon.'+self.wlan+' down', sudo_pwd)
 
-        # TODO: Find some workaround. killing hostapd brings down the wlan0 interface in ifconfig.
-        # stop hostapd
-        #if ut.is_process_running('hostapd')>0:
-        #    ut.execute_shell_root('pkill hostapd', sudo_pwd)
-
-        # Stop dnsmasq
-        if ut.is_process_running('dnsmasq')>0:
-            ut.execute_shell_root('killall dnsmasq', sudo_pwd)
-
         # Disable forwarding in iptables.
-        ut.execute_shell('iptables -P FORWARD DROP', sudo_pwd)
+        ut.execute_shell_root('iptables -P FORWARD DROP', sudo_pwd)
 
         # delete iptables rules that were added for wlan traffic.
         if self.wlan!=None:
@@ -65,28 +52,21 @@ class Hotspot(object):
         ut.execute_shell_root('iptables --table nat --delete-chain', sudo_pwd)
         ut.execute_shell_root('iptables --table nat -F', sudo_pwd)
         ut.execute_shell_root('iptables --table nat -X', sudo_pwd)
+
         # disable forwarding in sysctl.
-        ut.set_sysctl('net.ipv4.ip_forward', '0', "echo "+sudo_pwd+" | sudo -S ")
-        # cli.execute_shell('ifconfig ' + wlan + ' down'  + IP + ' netmask ' + Netmask)
-        # cli.execute_shell('ip addr flush ' + wlan)
+        ut.set_sysctl('net.ipv4.ip_forward', '0', sudo_pwd)
+
+        ut.execute_shell_root('nmcli radio wifi on', sudo_pwd)
+        ut.execute_shell_root('nmcli nm wifi on', sudo_pwd)
 
         return True
 
     def start(self, sudo_pwd):
-        # if self.is_running():
-        #    return "already running"
-        # response = self.check_interfaces()
-        # if response!=True:
-        #    return response
-
         # stop
-        try:
-            ut.execute_shell_root('nmcli radio wifi off', sudo_pwd)
-            ut.execute_shell_root('nmcli nm wifi off', sudo_pwd)
-            #ut.execute_shell_root('rfkill unblock wlan', sudo_pwd)
-            ut.execute_shell_root('sleep 1', sudo_pwd)
-        except Exception as ea:
-            print(ea)
+        ut.execute_shell_root('nmcli radio wifi off', sudo_pwd)
+        ut.execute_shell_root('nmcli nm wifi off', sudo_pwd)
+        ut.execute_shell_root('rfkill unblock wlan', sudo_pwd)
+        ut.execute_shell_root('sleep 1', sudo_pwd)
 
         # create interface
         s = 'ifconfig '+self.wlan+' up '+self.ip+' netmask '+self.netmask
@@ -95,17 +75,14 @@ class Hotspot(object):
         i = self.ip.rindex('.')
         ipparts = self.ip[0:i]
 
-        # stop dnsmasq if already running.
-        #if ut.is_process_running('dnsmasq')>0:
-        #    ut.execute_shell_root('killall dnsmasq', sudo_pwd)
-
         # stop hostapd if already running.
         if ut.is_process_running('hostapd')>0:
             ut.execute_shell_root('killall hostapd', sudo_pwd)
 
-        # enable forwarding in sysctl.
-        ut.set_sysctl('net.ipv4.ip_forward', '1', "echo "+sudo_pwd+" | sudo -S ")
-        # enable forwarding in iptables.
+        if ut.is_process_running('dnsmasq')>0:
+            ut.execute_shell_root('killall dnsmasq', sudo_pwd)
+
+        ut.set_sysctl('net.ipv4.ip_forward', '1', sudo_pwd)
         ut.execute_shell_root('iptables -P FORWARD ACCEPT', sudo_pwd)
 
         # add iptables rules to create the NAT.
@@ -145,33 +122,18 @@ class Hotspot(object):
         print("[+] Depencencies are verified.")
 
         # verify connections
-        if ut.interface_iw(self.wlan):
-            print("[+] Wifi interface is verified : "+self.wlan)
-        else:
+        if not ut.interface_iw(self.wlan):
             print("[!] Wireless interface could not be found.")
             return False
 
-        if ut.interface_if(self.inet):
-            print("[+] Network interface is verified : "+self.inet)
-        else:
+        if not ut.interface_if(self.inet):
             print("[!] Network inteface could not be found.")
             return False
 
-        if ut.validate_ip(self.ip):
-            print("[+] IP : "+self.ip)
-        else:
+        if not ut.validate_ip(self.ip):
             print("[!] IP is illegal.")
             self.ip = "192.168.99.1"
             print("[+] IP automatically setted to 192.168.99.1")
-            return
-
-        print("[+] Netmask : "+self.netmask)
-
-        if self.ssid=='_Faunus': self.ssid = 'I_am_Faunus'
-        print("[+] Hotspot name : "+self.ssid)
-
-        if self.password=='' or len(self.password)<10: self.password = '1234567890'
-        print("[+] Password : *************")
 
         if not os.path.isfile('./run.dat'):
             with open('run.dat', 'w') as fo:
@@ -180,7 +142,7 @@ class Hotspot(object):
         lout = []
         with open('run.dat', 'r') as fo:
             for line in fo.readlines():
-                lout.append(line.replace('<SSID>', self.ssid).replace('<PASS>', self.password))
+                lout.append(line.replace('<SSID>', self.ssid+"_Faunus").replace('<PASS>', self.password))
 
         with open('run.conf', 'w') as fo:
             fo.writelines(lout)
@@ -189,10 +151,9 @@ class Hotspot(object):
         return True
 
     def is_running(self):
-        if (ut.is_process_running('hostapd')!=0 and ut.is_process_running('dnsmasq')!=0):
+        if (ut.is_process_running('hostapd')!=0):
             return True
         return False
 
-
-hs = Hotspot()
-print(hs.check_interfaces())
+    def check_eth_connected(self, sudo_pwd):
+        return ut.check_eth_connected(sudo_pwd)

@@ -86,16 +86,16 @@ def check_sysfile(filename):
         return ''
 
 
-def get_sysctl(setting, sudo=''):
-    result = execute_shell(sudo+'sysctl '+setting)
+def get_sysctl(setting, sudo_pwd):
+    result = execute_shell_root('sysctl '+setting, sudo_pwd).decode("utf-8")
     if '=' in result:
         return result.split('=')[1].lstrip()
     else:
         return result
 
 
-def set_sysctl(setting, value, sudo=''):
-    return execute_shell(sudo+'sysctl -w '+setting+'='+value)
+def set_sysctl(setting, value, sudo_pwd):
+    return execute_shell_root('sysctl -w '+setting+'='+value, sudo_pwd).decode("utf-8")
 
 
 def interface_iw(name):
@@ -119,4 +119,10 @@ def interface_if(name):
             text = line.split(' ')[0]
             if text.startswith(name):
                 return text
+    return False
+
+def check_eth_connected(sudo_pwd):
+    response = execute_shell_root("ethtool eth0 | grep detected:", sudo_pwd).decode("utf-8")
+    if "yes" in response:
+        return True
     return False
